@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        include head.pug
+        link(rel='stylesheet', href='/qrcode/static/style/main.css')
+    body
+        include header_navigate.pug
+        section(class='home')
+            div(class='content')
+                p(class='medium') Make
+                    b(class='text__state--green')  QRCODE
+                    |  easy !
+                div(class='search-holder')
+                    form(action='/qrcode/view' method='get')
+                        div(class='url-input')
+                            input(type='search' name='source' placeholder='Input URL,Text' autocomplete='off' autofocus='')
+                            span(role='status')
+                        button(type='submit')
+        script(type='text/javascript' src='/qrcode/static/js/classie.js')
+        script(type='text/javascript' src='/qrcode/static/js/gnmenu.js')

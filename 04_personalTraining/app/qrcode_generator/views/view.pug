@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        include head.pug
+        link(rel='stylesheet', href='/qrcode/static/style/view.css')
+    body
+        include header_navigate.pug
+        section(class='home')
+            div(class='content')
+                div(class='qr-result')
+                    div(class='qr-image')
+                        != svg_data
+                    div(class='qr-action')
+                        div(class='qr-sub-action')
+                            h1 QRCode
+                            ul
+                                li(class='gn-icon gn-icon-stats-bars')  1,000,000
+                                li(class='gn-icon gn-icon-download')  1,000,000
+                            h1 Details
+                            ul
+                                - src = ' '.concat(source)
+                                li(class='gn-icon gn-icon-qrcode')= src
+                            div(class='qr-ad-section')
+                                span(style={position:'absolute','text-align':'none'}) AD-Section
+
+                            form(action='/qrcode/download' method='post')
+                                input(type='hidden' name='source' value=source)
+                                ul
+                                    li
+                                        a(class='gn-icon gn-icon-home' href='/qrcode')
+                                    li
+                                        a(class='gn-icon gn-icon-share' href='javascript:{}')
+                                    li
+                                        a(class='gn-icon gn-icon-download' href='javascript:{}' onclick='document.getElementsByTagName("form")[0].submit();')
+        script(type='text/javascript' src='/qrcode/static/js/classie.js')
+        script(type='text/javascript' src='/qrcode/static/js/gnmenu.js')

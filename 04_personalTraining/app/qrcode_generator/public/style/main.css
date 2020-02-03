@@ -1,0 +1,41 @@
+.home .content .search-holder {
+    width: 100%;
+    position: relative;
+}
+
+.home .content .search-holder form .url-input input[type='search'] {
+    padding: .8em 3em .8em .8em;
+    margin: 0;
+    border: none;
+    border-radius: 3px;
+    color: #0b2239;
+    font-size: 1.4em;
+    width: 100%;
+    outline: none;
+}
+
+.home .content .search-holder form button[type='submit'] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 2em;
+    padding: 0 .5em;
+    height: 100%;
+    background: transparent;
+    border: none;
+}
+
+.home .content .search-holder form button[type='submit']:before {
+    content: "\e986";
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-family: 'icomoon';
+    line-height: 1.4;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+}

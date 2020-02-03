@@ -1,0 +1,30 @@
+.medium {
+    font-size: 2.5em;
+    margin: 0 0 .75em;
+    text-align: center;
+    color: white;
+}
+
+.text__state--green {
+    color: #69e781;
+}
+
+body {
+    background: #0b2239 url(../background.svg) bottom;
+    background-size: 450px;
+}
+.home {
+    position: relative;
+    /*text-align: center;*/
+    color: #5f6f81;
+}
+
+.home .content {
+    box-sizing: content-box;
+    width: 80%;
+    max-width: 64em;
+    margin: calc(60px + 10%) auto 10%;
+}
+@media screen and (max-width: 740px) {
+
+}
