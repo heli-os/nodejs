@@ -2,7 +2,7 @@
   "name": "qrcode-generator",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "qrcode.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "iconv-lite": "^0.5.0",
-    "orientjs": "^3.0.9",
+    "path": "^0.12.7",
     "pug": "^2.0.4",
     "qr-image": "^3.2.0",
     "underscore": "^1.9.1"
