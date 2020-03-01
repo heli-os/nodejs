@@ -4,7 +4,17 @@ const FileStore = require('session-file-store')(session);
 const bkfd2Password = require("pbkdf2-password");
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const hasher = bkfd2Password();
+
+const fs = require('fs');
+const https = require('https');
+
+// key define
+const optionsForHTTPS = {
+    key : fs.readFileSync('/etc/letsencrypt/live/jupiterflow.com/privkey.pem'),
+    cert : fs.readFileSync('/etc/letsencrypt/live/jupiterflow.com/cert.pem')
+};
 
 const app = express();
 app.use(express.json()) // for parsing application/json
@@ -30,7 +40,7 @@ app.get('/count', (req, res) => {
 });
 app.get('/auth/logout', (req, res) => {
     req.logout();
-    req.session.save(()=>{
+    req.session.save(() => {
         res.redirect('/welcome');
     });
 });
@@ -57,7 +67,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    console.log('deserializeUser',id);
+    console.log('deserializeUser', id);
     for (let i = 0; i < users.length; i++) {
         const user = users[i];
         if (id === user.username) {
@@ -78,7 +88,7 @@ passport.use(new LocalStrategy({
             const user = users[i];
             if (uname === user.username) {
                 return hasher({password: pwd, salt: user.salt}, (err, pass, salt, hash) => {
-                    console.log('LocalStrategy',user);
+                    console.log('LocalStrategy', user);
                     if (hash === user.password) {
                         done(null, user);
                     } else {
@@ -90,6 +100,21 @@ passport.use(new LocalStrategy({
         done(null, false);
     }
 ));
+passport.use(new FacebookStrategy({
+        clientID: '',
+        clientSecret: '',
+        callbackURL: "/auth/facebook/callback"
+    },
+    (accessToken, refreshToken, profile, done) => {
+        // User.findOrCreate(..., function (err, user) {
+        //     if (err) {
+        //         return done(err);
+        //     }
+        //     done(null, user);
+        // });
+    }
+));
+
 app.post('/auth/login',
     passport.authenticate(
         'local',
@@ -97,10 +122,31 @@ app.post('/auth/login',
             successRedirect: '/welcome',
             failureRedirect: '/auth/login',
             failureFlash: false
+        },
+        () => {
+
         }
     )
 );
+app.get('/auth/facebook',
+    passport.authenticate(
+        'facebook',
+        {},
+        () => {
 
+        }
+    )
+);
+app.get('/auth/facebook/callback',
+    passport.authenticate(
+        'facebook',
+        {
+            successRedirect: '/welcome',
+            failureRedirect: '/auth/login'
+        },
+        () => {}
+    )
+);
 const users = [
     {
         username: 'keriel',
@@ -119,7 +165,7 @@ app.post('/auth/register', (req, res) => {
         };
         users.push(user);
         req.login(user, (err) => {
-            req.session.save(()=>{
+            req.session.save(() => {
                 res.redirect('/welcome');
             });
         });
@@ -159,9 +205,12 @@ app.get('/auth/login', (req, res) => {
       <input type="submit">
     </p>
   </form>
+  <a href="/auth/facebook">facebook</a>
   `;
     res.send(output);
 });
-app.listen(3001, () => {
-    console.log('Connected 3001 port!!!');
-});
+
+https.createServer(optionsForHTTPS, app).listen(3001);
+// app.listen(3001, () => {
+//     console.log('Connected 3001 port!!!');
+// });
