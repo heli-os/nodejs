@@ -8,7 +8,7 @@ This repository is used for my Node.js studying.
 * express에서 정적 파일 사용하기
 
   ```javascript
-  app.use(express.static('public');
+  app_passport_mysql.use(express.static('public');
   ```
 * express 동적 렌더링 / 정적 렌더링 차이 점
   * 1...
@@ -17,8 +17,8 @@ This repository is used for my Node.js studying.
 * 코드 줄 바꿈
 
   ```javascript
-  if (app.get('env') === 'development') {
-    app.locals.pretty = true;
+  if (app_passport_mysql.get('env') === 'development') {
+    app_passport_mysql.locals.pretty = true;
   }
   ```
   
@@ -26,28 +26,28 @@ This repository is used for my Node.js studying.
 
   `jade에서 pug로 개명되어 pug를 사용함.`
   ```javascript
-  app.set('view engine', 'pug');
-  app.set('views','./views');
+  app_passport_mysql.set('view engine', 'pug');
+  app_passport_mysql.set('views','./views');
   ```
   
 * 값 전달 방식(GET,QueryString,Semantic,POST)에 따른 값 가져오기
 
   * GET & QueryString
     ```javascript
-    app.get('/topic',(req, res)=>{
+    app_passport_mysql.get('/topic',(req, res)=>{
       req.query.{queryname};
     });
   * Semantic
     ```javascript
-    app.get('/topic/:id',(req, res)=>{
+    app_passport_mysql.get('/topic/:id',(req, res)=>{
       req.params.id;
     });
     ```
   * POST
     ```javascript
-    app.use(express.json()) // for parsing application/json
-    app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-    app.post('/form_receiver',(req,res)=>{
+    app_passport_mysql.use(express.json()) // for parsing application/json
+    app_passport_mysql.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+    app_passport_mysql.post('/form_receiver',(req,res)=>{
       const title = req.body.title;
       const description = req.body.description;
     });
@@ -56,7 +56,7 @@ This repository is used for my Node.js studying.
 * 다중 Route
 
   ```javascript
-  app.get(['/topic', '/topic/new', '/topic/view/:title'], (req, res) => {
+  app_passport_mysql.get(['/topic', '/topic/new', '/topic/view/:title'], (req, res) => {
     ...
   });
   ```
